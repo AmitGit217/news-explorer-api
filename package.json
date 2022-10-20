@@ -1,0 +1,25 @@
+{
+    "name": "news-explorer-api",
+    "version": "1.0.0",
+    "description": "News-Explorer--api",
+    "main": "server.js",
+    "scripts": {
+        "dev": "node --watch server.js",
+        "start": "node server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/AmitGit217/news-explorer-api.git"
+    },
+    "author": "Amit Bar-Gil",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/AmitGit217/news-explorer-api/issues"
+    },
+    "homepage": "https://github.com/AmitGit217/news-explorer-api#readme",
+    "dependencies": {
+        "editorconfig": "^1.0.0",
+        "eslint": "^8.25.0",
+        "eslint-config-airbnb": "^19.0.4"
+    }
+}
