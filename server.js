@@ -6,8 +6,14 @@ import dotEnv from "dotenv";
 dotEnv.config();
 
 import routeUndefined from "./helpers/routeUndefined.js";
+import connection from "./helpers/dbConnector.js";
 import router from "./routes/index.js";
 
+mongoose.connect(connection, () => {
+  if (mongoose.connection.readyState === 1) {
+    console.log("Database is connected successfully");
+  }
+});
 const { PORT = 3000 } = process.env;
 const server = express();
 
