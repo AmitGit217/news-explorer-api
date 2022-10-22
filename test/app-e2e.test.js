@@ -22,12 +22,22 @@ describe("Initial app settings", () => {
       name: "name",
       password: "password",
     };
+    const invalidEmail = {
+      email: "invalidEmail",
+      name: "name",
+      password: "password",
+    };
     it("Should return 201 status code with user data", async () => {
       const res = await req.post("/signup").send(user);
       expect(res.status).toBe(201);
       expect(res.body.email).toBe(user.email);
       expect(res.body.name).toBe(user.name);
       expect(res.body.password).toBe(undefined);
+    });
+    it("Should return 400 status code with error message", async () => {
+      const res = await req.post("/signup").send(invalidEmail);
+      expect(res.status).toBe(400);
+      expect(res.body.message).toBe("Input invalid");
     });
     it("Should return 409 status code with error message", async () => {
       const res = await req.post("/signup").send(user);
