@@ -4,7 +4,7 @@ let connection = "";
 
 switch (process.env.NODE_ENV) {
   case "pro":
-    connection = DB_PRO;
+    connection = DB_PROD;
     break;
   case "dev":
     connection = DB_DEV;
