@@ -37,7 +37,7 @@ describe("Initial app settings", () => {
     it("Should return 400 status code with error message", async () => {
       const res = await req.post("/signup").send(invalidEmail);
       expect(res.status).toBe(400);
-      expect(res.body.message).toBe("Input invalid");
+      expect(res.body.message).toBe("Validation failed");
     });
     it("Should return 409 status code with error message", async () => {
       const res = await req.post("/signup").send(user);

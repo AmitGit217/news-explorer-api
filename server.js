@@ -10,6 +10,7 @@ import { errorHandler } from "./helpers/errorHandler.js";
 import connection from "./helpers/dbConnector.js";
 import router from "./routes/index.js";
 import { signup } from "./user/user.controller.js";
+import { userValidation } from "./middlewares/celebrate.js";
 
 mongoose.connect(connection, () => {
   if (mongoose.connection.readyState === 1) {
@@ -23,7 +24,7 @@ server.use(express.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 
-server.post("/signup", signup);
+server.post("/signup", userValidation, signup);
 
 server.use(router);
 server.use("*", routeUndefined);
