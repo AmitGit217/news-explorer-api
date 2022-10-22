@@ -59,7 +59,7 @@ describe("Initial app settings", () => {
       expect(res.status).toBe(400);
       expect(res.body.message).toBe("Validation failed");
     });
-    it("Should return 409 status code with error message", async () => {
+    it("Should return 409 status code with error message for existing email", async () => {
       const res = await req.post("/signup").send(user);
       expect(res.status).toBe(409);
       expect(res.body.message).toBe("Data already exist in the database");
