@@ -19,3 +19,5 @@ server.use(router);
 server.use("*", routeUndefined);
 
 server.listen(PORT);
+
+export default server;
