@@ -29,5 +29,10 @@ describe("Initial app settings", () => {
       expect(res.body.name).toBe(user.name);
       expect(res.body.password).toBe(undefined);
     });
+    it("Should return 409 status code with error message", async () => {
+      const res = await req.post("/signup").send(user);
+      expect(res.status).toBe(409);
+      expect(res.body.message).toBe("Resource need to be unique");
+    });
   });
 });

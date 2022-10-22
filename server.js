@@ -6,7 +6,7 @@ import dotEnv from "dotenv";
 dotEnv.config();
 
 import routeUndefined from "./helpers/routeUndefined.js";
-import errorHandler from "./helpers/errorHandler.js";
+import { errorHandler } from "./helpers/errorHandler.js";
 import connection from "./helpers/dbConnector.js";
 import router from "./routes/index.js";
 import { signup } from "./user/user.controller.js";
@@ -24,6 +24,7 @@ server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 
 server.post("/signup", signup);
+
 server.use(router);
 server.use("*", routeUndefined);
 server.use(errorHandler);
