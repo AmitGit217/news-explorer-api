@@ -27,6 +27,16 @@ describe("Initial app settings", () => {
       name: "name",
       password: "password",
     };
+    const invalidPassword = {
+      email: "valid@email.com",
+      name: "name",
+      password: "",
+    };
+    const invalidName = {
+      email: "valid@email.com",
+      name: "n",
+      password: "password",
+    };
     it("Should return 201 status code with user data", async () => {
       const res = await req.post("/signup").send(user);
       expect(res.status).toBe(201);
@@ -34,15 +44,25 @@ describe("Initial app settings", () => {
       expect(res.body.name).toBe(user.name);
       expect(res.body.password).toBe(undefined);
     });
-    it("Should return 400 status code with error message", async () => {
+    it("Should return 400 status code with error message for invalid email", async () => {
       const res = await req.post("/signup").send(invalidEmail);
+      expect(res.status).toBe(400);
+      expect(res.body.message).toBe("Validation failed");
+    });
+    it("Should return 400 status code with error message for invalid name", async () => {
+      const res = await req.post("/signup").send(invalidName);
+      expect(res.status).toBe(400);
+      expect(res.body.message).toBe("Validation failed");
+    });
+    it("Should return 400 status code with error message for invalid password", async () => {
+      const res = await req.post("/signup").send(invalidPassword);
       expect(res.status).toBe(400);
       expect(res.body.message).toBe("Validation failed");
     });
     it("Should return 409 status code with error message", async () => {
       const res = await req.post("/signup").send(user);
       expect(res.status).toBe(409);
-      expect(res.body.message).toBe("Resource need to be unique");
+      expect(res.body.message).toBe("Data already exist in the database");
     });
   });
 });
