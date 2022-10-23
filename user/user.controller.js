@@ -5,10 +5,12 @@ import {
   CREATE,
   DATA_EXIST_MESSAGE,
   INVALID_DATA_MESSAGE,
+  USER_NOT_FOUND_MESSAGE,
 } from "../lib/constants.js";
 import ValidationError from "../helpers/errors/Validation.js";
 import { DataExist } from "../helpers/errors/DataExist.js";
 import Unauthorize from "../helpers/errors/Unauthorize.js";
+import NotFound from "../helpers/errors/NotFound.js";
 
 const signup = (req, res, next) => {
   const { password } = req.body;
@@ -36,7 +38,10 @@ const signin = (req, res, next) => {
   const { email, password } = req.body;
   User.findUserByCredentials(email, password)
     .then((data) => {
-      const token = jwt.sign({ userId: data._id }, process.env.JWT_SECRET);
+      const token = jwt.sign(
+        { id: data._id },
+        process.env.NODE_ENV === "pro" ? process.env.JWT_SECRET : "secret"
+      );
       const { password, ...user } = data._doc;
       res.send({ token, user });
     })
@@ -46,4 +51,19 @@ const signin = (req, res, next) => {
     .catch(next);
 };
 
-export { signup, signin };
+const currentUser = (req, res, next) => {
+  const { id } = req.user;
+  User.findById(id)
+    .orFail()
+    .then((user) => res.send(user))
+    .catch((error) => {
+      if (error.name === "DocumentNotFoundError") {
+        throw new NotFound(USER_NOT_FOUND_MESSAGE);
+      } else if (error.name === "CastError") {
+        throw new ValidationError(INVALID_DATA_MESSAGE);
+      }
+    })
+    .catch(next);
+};
+
+export { signup, signin, currentUser };
