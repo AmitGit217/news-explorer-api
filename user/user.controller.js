@@ -8,7 +8,7 @@ import {
 } from "../lib/constants.js";
 import ValidationError from "../helpers/errors/Validation.js";
 import { DataExist } from "../helpers/errors/DataExist.js";
-const { NODE_ENV, JWT_SECRET } = process.env;
+import Unauthorize from "../helpers/errors/Unauthorize.js";
 
 const signup = (req, res, next) => {
   const { password } = req.body;
@@ -21,8 +21,8 @@ const signup = (req, res, next) => {
         const { password, ...user } = data._doc;
         res.status(CREATE).send(user);
       })
-      .catch((err) => {
-        if (err.name === "ValidationError") {
+      .catch((error) => {
+        if (error.name === "ValidationError") {
           throw new ValidationError(INVALID_DATA_MESSAGE);
         } else {
           throw new DataExist(DATA_EXIST_MESSAGE);
@@ -34,7 +34,16 @@ const signup = (req, res, next) => {
 
 const signin = (req, res, next) => {
   const { email, password } = req.body;
-  User.findUserByCredentials(email, password).then((data) => res.send(data));
+  User.findUserByCredentials(email, password)
+    .then((data) => {
+      const token = jwt.sign({ userId: data._id }, process.env.JWT_SECRET);
+      const { password, ...user } = data._doc;
+      res.send({ token, user });
+    })
+    .catch((error) => {
+      throw new Unauthorize(error.message);
+    })
+    .catch(next);
 };
 
 export { signup, signin };
