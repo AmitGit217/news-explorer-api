@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import {
   article,
   credentials,
+  invalidArticleId,
   invalidImage,
   invalidLink,
   missingDate,
@@ -13,11 +14,16 @@ import {
   missingSource,
   missingText,
   missingTitle,
+  undefinedArticle,
   user,
   userNotFoundToken,
 } from "./cases.js";
 
-import { USER_NOT_FOUND_MESSAGE } from "../lib/constants";
+import {
+  ARTICLE_NOT_FOUND_MESSAGE,
+  INVALID_DATA_MESSAGE,
+  USER_NOT_FOUND_MESSAGE,
+} from "../lib/constants";
 
 const req = supertest(server);
 
@@ -28,6 +34,7 @@ afterAll((done) => {
 });
 
 let token;
+let articleId;
 describe("Article action", () => {
   it("Creating user...", async () => {
     const res = await req.post("/signup").send(user);
@@ -52,6 +59,7 @@ describe("Article action", () => {
     expect(res.body.date).toBe(article.date);
     expect(res.body.source).toBe(article.source);
     expect(res.body.owner).toBe(undefined);
+    articleId = res.body._id;
   });
 
   it("Should return 400 status code for missing keyword", async () => {
@@ -138,7 +146,6 @@ describe("Article action", () => {
     const res = await req
       .get("/articles")
       .set("Authorization", "Bearer " + token);
-    console.log(token);
     expect(res.status).toBe(200);
     expect(res.body).toHaveLength(1);
     const currentArticle = res.body[0];
@@ -156,6 +163,46 @@ describe("Article action", () => {
     const res = await req
       .get("/articles")
       .set("Authorization", "Bearer " + userNotFoundToken);
+    expect(res.status).toBe(404);
+    expect(res.body.message).toBe(USER_NOT_FOUND_MESSAGE);
+  });
+
+  it("Should return 404 status code with error message for undefined article", async () => {
+    const res = await req
+      .delete(`/articles/${undefinedArticle}`)
+      .set("Authorization", "Bearer " + token);
+    expect(res.status).toBe(404);
+    expect(res.body.message).toBe(ARTICLE_NOT_FOUND_MESSAGE);
+  });
+
+  it("Should return 404 status code with error message for invalid article id", async () => {
+    const res = await req
+      .delete(`/articles/${invalidArticleId}`)
+      .set("Authorization", "Bearer " + token);
+    expect(res.status).toBe(400);
+    expect(res.body.message).toBe("Validation failed");
+  });
+
+  it("Should return 200 status code with the deleted article", async () => {
+    const res = await req
+      .delete(`/articles/${articleId}`)
+      .set("Authorization", "Bearer " + token);
+    expect(res.status).toBe(200);
+    const currentArticle = res.body;
+    expect(currentArticle.keyword).toBe(article.keyword);
+    expect(currentArticle.title).toBe(article.title);
+    expect(currentArticle.text).toBe(article.text);
+    expect(currentArticle.link).toBe(article.link);
+    expect(currentArticle.image).toBe(article.image);
+    expect(currentArticle.date).toBe(article.date);
+    expect(currentArticle.source).toBe(article.source);
+    expect(currentArticle.owner).toBe(undefined);
+  });
+
+  it("Should return 404 status code for empty articles array", async () => {
+    const res = await req
+      .get("/articles")
+      .set("Authorization", "Bearer " + token);
     expect(res.status).toBe(404);
     expect(res.body.message).toBe(USER_NOT_FOUND_MESSAGE);
   });

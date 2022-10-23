@@ -153,6 +153,10 @@ const invalidImage = {
 const userNotFoundToken =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNTUyMGNhMmQ0N2NmNWNkNTBkZTYwMCIsImlhdCI6MTY2NjUyMzMzOH0._BPk-cs_aYzal6GZUa_cYeJSfAFNa9IN78X1CEPQnfk";
 
+const undefinedArticle = "63552e61590ed5aebc7aee99";
+
+const invalidArticleId = "63552e61590ed5aebc7";
+
 export {
   user,
   invalidEmail,
@@ -172,4 +176,6 @@ export {
   invalidLink,
   invalidImage,
   userNotFoundToken,
+  undefinedArticle,
+  invalidArticleId,
 };
