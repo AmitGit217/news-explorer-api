@@ -6,11 +6,11 @@ import {
   DATA_EXIST_MESSAGE,
   INVALID_DATA_MESSAGE,
   USER_NOT_FOUND_MESSAGE,
-} from "../lib/constants.js";
-import ValidationError from "../helpers/errors/Validation.js";
-import { DataExist } from "../helpers/errors/DataExist.js";
-import Unauthorize from "../helpers/errors/Unauthorize.js";
-import NotFound from "../helpers/errors/NotFound.js";
+} from "../../lib/constants.js";
+import ValidationError from "../../helpers/errors/Validation.js";
+import { DataExist } from "../../helpers/errors/DataExist.js";
+import Unauthorize from "../../helpers/errors/Unauthorize.js";
+import NotFound from "../../helpers/errors/NotFound.js";
 
 const signup = (req, res, next) => {
   const { password } = req.body;

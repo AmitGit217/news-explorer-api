@@ -7,7 +7,7 @@ dotEnv.config();
 
 import routeUndefined from "./helpers/routeUndefined.js";
 import { errorHandler } from "./helpers/errorHandler.js";
-import { signin, signup } from "./user/user.controller.js";
+import { signin, signup } from "./entities/user/user.controller.js";
 import { userValidation } from "./middlewares/celebrate.js";
 import auth from "./middlewares/auth.js";
 import connection from "./helpers/dbConnector.js";
