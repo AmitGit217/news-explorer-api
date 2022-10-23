@@ -28,7 +28,7 @@ describe("Initial app settings", () => {
     expect(res.body.message).toBe("Unauthorized");
   });
 
-  describe("User /signup", () => {
+  describe("Auth /signup", () => {
     it("Should return 201 status code with user data", async () => {
       const res = await req.post("/signup").send(user);
       expect(res.status).toBe(201);
@@ -36,21 +36,25 @@ describe("Initial app settings", () => {
       expect(res.body.name).toBe(user.name);
       expect(res.body.password).toBe(undefined);
     });
+
     it("Should return 400 status code with error message for invalid email", async () => {
       const res = await req.post("/signup").send(invalidEmail);
       expect(res.status).toBe(400);
       expect(res.body.message).toBe("Validation failed");
     });
+
     it("Should return 400 status code with error message for invalid name", async () => {
       const res = await req.post("/signup").send(invalidName);
       expect(res.status).toBe(400);
       expect(res.body.message).toBe("Validation failed");
     });
+
     it("Should return 400 status code with error message for invalid password", async () => {
       const res = await req.post("/signup").send(invalidPassword);
       expect(res.status).toBe(400);
       expect(res.body.message).toBe("Validation failed");
     });
+
     it("Should return 409 status code with error message for existing email", async () => {
       const res = await req.post("/signup").send(user);
       expect(res.status).toBe(409);
@@ -58,7 +62,7 @@ describe("Initial app settings", () => {
     });
   });
 
-  describe("User /signin", () => {
+  describe("Auth /signin", () => {
     it("Should return 200 status code with user data & JWT", async () => {
       const res = await req.post("/signin").send(credentials);
       expect(res.status).toBe(200);
@@ -67,17 +71,20 @@ describe("Initial app settings", () => {
       expect(res.body.token).toBeDefined();
       token = res.body.token;
     });
+
     it("Should return 401 status code with error message for invalid email credential", async () => {
       const res = await req.post("/signin").send(invalidEmailCredential);
       expect(res.status).toBe(401);
       expect(res.body.message).toBe("Incorrect email or password");
     });
+
     it("Should return 401 status code with error message for invalid password credential", async () => {
       const res = await req.post("/signin").send(invalidPasswordCredential);
       expect(res.status).toBe(401);
       expect(res.body.message).toBe("Incorrect email or password");
     });
   });
+
   it("Should response with 404 status code for undefined route", async () => {
     const res = await req
       .get("/undefined-route")

@@ -14,7 +14,10 @@ import {
   missingText,
   missingTitle,
   user,
+  userNotFoundToken,
 } from "./cases.js";
+
+import { USER_NOT_FOUND_MESSAGE } from "../lib/constants";
 
 const req = supertest(server);
 
@@ -129,5 +132,31 @@ describe("Article action", () => {
       .set("Authorization", "Bearer " + token);
     expect(res.status).toBe(400);
     expect(res.body.message).toBe("Validation failed");
+  });
+
+  it("Should return 200 status code with articles", async () => {
+    const res = await req
+      .get("/articles")
+      .set("Authorization", "Bearer " + token);
+    console.log(token);
+    expect(res.status).toBe(200);
+    expect(res.body).toHaveLength(1);
+    const currentArticle = res.body[0];
+    expect(currentArticle.keyword).toBe(article.keyword);
+    expect(currentArticle.title).toBe(article.title);
+    expect(currentArticle.text).toBe(article.text);
+    expect(currentArticle.link).toBe(article.link);
+    expect(currentArticle.image).toBe(article.image);
+    expect(currentArticle.date).toBe(article.date);
+    expect(currentArticle.source).toBe(article.source);
+    expect(currentArticle.owner).toBe(undefined);
+  });
+
+  it("Should return 404 status code with error message for invalid token and undefined user id", async () => {
+    const res = await req
+      .get("/articles")
+      .set("Authorization", "Bearer " + userNotFoundToken);
+    expect(res.status).toBe(404);
+    expect(res.body.message).toBe(USER_NOT_FOUND_MESSAGE);
   });
 });

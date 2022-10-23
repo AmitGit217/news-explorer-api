@@ -150,6 +150,9 @@ const invalidImage = {
     "humbor/lh2YBh8cWvn3ARrenXxjolBte4o=/0x0:2040x1360/1200x628/filters:focal(1020x680:1021x681)/cdn.vox-cdn.com/uploads/chorus_asset/file/23932655/acastro_STK106__01.jpg",
 };
 
+const userNotFoundToken =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNTUyMGNhMmQ0N2NmNWNkNTBkZTYwMCIsImlhdCI6MTY2NjUyMzMzOH0._BPk-cs_aYzal6GZUa_cYeJSfAFNa9IN78X1CEPQnfk";
+
 export {
   user,
   invalidEmail,
@@ -168,4 +171,5 @@ export {
   missingLink,
   invalidLink,
   invalidImage,
+  userNotFoundToken,
 };

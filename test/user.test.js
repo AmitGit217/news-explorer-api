@@ -12,11 +12,12 @@ afterAll((done) => {
 
 let token;
 
-describe("User /signin", () => {
+describe("User", () => {
   it("Creating user...", async () => {
     const res = await req.post("/signup").send(user);
     return res;
   });
+
   it("Getting token...", async () => {
     const res = await req.post("/signin").send(credentials);
     token = res.body.token;
@@ -32,6 +33,7 @@ describe("User /users/me", () => {
     expect(res.body.name).toBe(user.name);
     expect(res.body.email).toBe(user.email);
   });
+
   it("Should return 401 status code with error message for missing JWT", async () => {
     const res = await req.get("/users/me");
     expect(res.status).toBe(401);
