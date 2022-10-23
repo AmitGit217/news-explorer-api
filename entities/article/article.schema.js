@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { URL_REGEX } from "../lib/constants";
+import { URL_REGEX } from "../../lib/constants";
 
 const Article = new mongoose.Schema({
   keyword: { type: String, required: true },
@@ -23,7 +23,12 @@ const Article = new mongoose.Schema({
       message: (props) => `${props.value} is not a valid URL`,
     },
   },
-  owner: { ref: "user", type: mongoose.Schema.Types.ObjectId, require: true },
+  owner: {
+    ref: "user",
+    type: mongoose.Schema.Types.ObjectId,
+    require: true,
+    select: false,
+  },
 });
 
 export default mongoose.model("article", Article);
