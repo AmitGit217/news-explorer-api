@@ -13,19 +13,12 @@ afterAll((done) => {
 let token;
 
 describe("User /signin", () => {
-  it("Should return 201 status code with user data", async () => {
+  it("Creating user...", async () => {
     const res = await req.post("/signup").send(user);
-    expect(res.status).toBe(201);
-    expect(res.body.email).toBe(user.email);
-    expect(res.body.name).toBe(user.name);
-    expect(res.body.password).toBe(undefined);
+    return res;
   });
-  it("Should return 200 status code with user data & JWT", async () => {
+  it("Getting token...", async () => {
     const res = await req.post("/signin").send(credentials);
-    expect(res.status).toBe(200);
-    expect(res.body.user.email).toBe(user.email);
-    expect(res.body.user.name).toBe(user.name);
-    expect(res.body.token).toBeDefined();
     token = res.body.token;
   });
 });

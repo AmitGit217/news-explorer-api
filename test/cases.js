@@ -44,6 +44,88 @@ const article = {
     "https://cdn.vox-cdn.com/thumbor/lh2YBh8cWvn3ARrenXxjolBte4o=/0x0:2040x1360/1200x628/filters:focal(1020x680:1021x681)/cdn.vox-cdn.com/uploads/chorus_asset/file/23932655/acastro_STK106__01.jpg",
 };
 
+const missingKeyword = {
+  keyword: "",
+  title:
+    "Former Uber security chief found guilty of covering up massive 2016 data breach",
+  text: "Uber paid two hackers $100,000 in Bitcoin to keep a 2016 data breach quiet, and now a jury has convicted former chief security officer Joe Sullivan on two charges for not reporting the incident to authorities.",
+  date: "2022-10-06T00:25:32Z",
+  source: "The Verge",
+  link: "https://www.theverge.com/2022/10/5/23390063/uber-security-chief-convicted-hack-cover-up-bounty-payment",
+  image:
+    "https://cdn.vox-cdn.com/thumbor/lh2YBh8cWvn3ARrenXxjolBte4o=/0x0:2040x1360/1200x628/filters:focal(1020x680:1021x681)/cdn.vox-cdn.com/uploads/chorus_asset/file/23932655/acastro_STK106__01.jpg",
+};
+
+const missingTitle = {
+  keyword: "bitcoin",
+  title: "",
+  text: "Uber paid two hackers $100,000 in Bitcoin to keep a 2016 data breach quiet, and now a jury has convicted former chief security officer Joe Sullivan on two charges for not reporting the incident to authorities.",
+  date: "2022-10-06T00:25:32Z",
+  source: "The Verge",
+  link: "https://www.theverge.com/2022/10/5/23390063/uber-security-chief-convicted-hack-cover-up-bounty-payment",
+  image:
+    "https://cdn.vox-cdn.com/thumbor/lh2YBh8cWvn3ARrenXxjolBte4o=/0x0:2040x1360/1200x628/filters:focal(1020x680:1021x681)/cdn.vox-cdn.com/uploads/chorus_asset/file/23932655/acastro_STK106__01.jpg",
+};
+
+const missingText = {
+  keyword: "bitcoin",
+  title:
+    "Former Uber security chief found guilty of covering up massive 2016 data breach",
+  text: "",
+  date: "2022-10-06T00:25:32Z",
+  source: "The Verge",
+  link: "https://www.theverge.com/2022/10/5/23390063/uber-security-chief-convicted-hack-cover-up-bounty-payment",
+  image:
+    "https://cdn.vox-cdn.com/thumbor/lh2YBh8cWvn3ARrenXxjolBte4o=/0x0:2040x1360/1200x628/filters:focal(1020x680:1021x681)/cdn.vox-cdn.com/uploads/chorus_asset/file/23932655/acastro_STK106__01.jpg",
+};
+
+const missingDate = {
+  keyword: "bitcoin",
+  title:
+    "Former Uber security chief found guilty of covering up massive 2016 data breach",
+  text: "Uber paid two hackers $100,000 in Bitcoin to keep a 2016 data breach quiet, and now a jury has convicted former chief security officer Joe Sullivan on two charges for not reporting the incident to authorities.",
+  date: "",
+  source: "The Verge",
+  link: "https://www.theverge.com/2022/10/5/23390063/uber-security-chief-convicted-hack-cover-up-bounty-payment",
+  image:
+    "https://cdn.vox-cdn.com/thumbor/lh2YBh8cWvn3ARrenXxjolBte4o=/0x0:2040x1360/1200x628/filters:focal(1020x680:1021x681)/cdn.vox-cdn.com/uploads/chorus_asset/file/23932655/acastro_STK106__01.jpg",
+};
+
+const missingSource = {
+  keyword: "bitcoin",
+  title:
+    "Former Uber security chief found guilty of covering up massive 2016 data breach",
+  text: "Uber paid two hackers $100,000 in Bitcoin to keep a 2016 data breach quiet, and now a jury has convicted former chief security officer Joe Sullivan on two charges for not reporting the incident to authorities.",
+  date: "2022-10-06T00:25:32Z",
+  source: "",
+  link: "https://www.theverge.com/2022/10/5/23390063/uber-security-chief-convicted-hack-cover-up-bounty-payment",
+  image:
+    "https://cdn.vox-cdn.com/thumbor/lh2YBh8cWvn3ARrenXxjolBte4o=/0x0:2040x1360/1200x628/filters:focal(1020x680:1021x681)/cdn.vox-cdn.com/uploads/chorus_asset/file/23932655/acastro_STK106__01.jpg",
+};
+
+const missingLink = {
+  keyword: "bitcoin",
+  title:
+    "Former Uber security chief found guilty of covering up massive 2016 data breach",
+  text: "Uber paid two hackers $100,000 in Bitcoin to keep a 2016 data breach quiet, and now a jury has convicted former chief security officer Joe Sullivan on two charges for not reporting the incident to authorities.",
+  date: "2022-10-06T00:25:32Z",
+  source: "The Verge",
+  link: "",
+  image:
+    "https://cdn.vox-cdn.com/thumbor/lh2YBh8cWvn3ARrenXxjolBte4o=/0x0:2040x1360/1200x628/filters:focal(1020x680:1021x681)/cdn.vox-cdn.com/uploads/chorus_asset/file/23932655/acastro_STK106__01.jpg",
+};
+
+const missingImage = {
+  keyword: "bitcoin",
+  title:
+    "Former Uber security chief found guilty of covering up massive 2016 data breach",
+  text: "Uber paid two hackers $100,000 in Bitcoin to keep a 2016 data breach quiet, and now a jury has convicted former chief security officer Joe Sullivan on two charges for not reporting the incident to authorities.",
+  date: "2022-10-06T00:25:32Z",
+  source: "The Verge",
+  link: "https://www.theverge.com/2022/10/5/23390063/uber-security-chief-convicted-hack-cover-up-bounty-payment",
+  image: "",
+};
+
 export {
   user,
   invalidEmail,
@@ -53,4 +135,11 @@ export {
   invalidEmailCredential,
   invalidPasswordCredential,
   article,
+  missingKeyword,
+  missingTitle,
+  missingText,
+  missingDate,
+  missingSource,
+  missingImage,
+  missingLink,
 };
