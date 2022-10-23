@@ -21,7 +21,6 @@ import {
 
 import {
   ARTICLE_NOT_FOUND_MESSAGE,
-  INVALID_DATA_MESSAGE,
   USER_NOT_FOUND_MESSAGE,
 } from "../lib/constants";
 
