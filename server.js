@@ -9,7 +9,7 @@ import routeUndefined from "./helpers/routeUndefined.js";
 import { errorHandler } from "./helpers/errorHandler.js";
 import connection from "./helpers/dbConnector.js";
 import router from "./routes/index.js";
-import { signup } from "./user/user.controller.js";
+import { signin, signup } from "./user/user.controller.js";
 import { userValidation } from "./middlewares/celebrate.js";
 
 mongoose.connect(connection, () => {
@@ -25,6 +25,7 @@ server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
 
 server.post("/signup", userValidation, signup);
+server.post("/signin", signin);
 
 server.use(router);
 server.use("*", routeUndefined);

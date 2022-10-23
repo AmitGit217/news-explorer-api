@@ -32,4 +32,9 @@ const signup = (req, res, next) => {
   });
 };
 
-export { signup };
+const signin = (req, res, next) => {
+  const { email, password } = req.body;
+  User.findUserByCredentials(email, password).then((data) => res.send(data));
+};
+
+export { signup, signin };
