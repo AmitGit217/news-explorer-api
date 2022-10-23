@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { URL_REGEX } from "../../lib/constants";
+import { URL_REGEX } from "../../lib/constants.js";
 
 const Article = new mongoose.Schema({
   keyword: { type: String, required: true },
