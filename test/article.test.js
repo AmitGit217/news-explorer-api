@@ -4,6 +4,8 @@ import mongoose from "mongoose";
 import {
   article,
   credentials,
+  invalidImage,
+  invalidLink,
   missingDate,
   missingImage,
   missingKeyword,
@@ -106,6 +108,24 @@ describe("Article action", () => {
     const res = await req
       .post("/articles")
       .send(missingImage)
+      .set("Authorization", "Bearer " + token);
+    expect(res.status).toBe(400);
+    expect(res.body.message).toBe("Validation failed");
+  });
+
+  it("Should return 400 status code for invalid link", async () => {
+    const res = await req
+      .post("/articles")
+      .send(invalidLink)
+      .set("Authorization", "Bearer " + token);
+    expect(res.status).toBe(400);
+    expect(res.body.message).toBe("Validation failed");
+  });
+
+  it("Should return 400 status code for invalid image", async () => {
+    const res = await req
+      .post("/articles")
+      .send(invalidImage)
       .set("Authorization", "Bearer " + token);
     expect(res.status).toBe(400);
     expect(res.body.message).toBe("Validation failed");
