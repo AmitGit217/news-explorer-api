@@ -12,12 +12,15 @@ import { errorHandler } from "./helpers/errorHandler.js";
 import { signin, signup } from "./entities/user/user.controller.js";
 import { userValidation } from "./middlewares/celebrate.js";
 import auth from "./middlewares/auth.js";
-import connection from "./helpers/dbConnector.js";
 import router from "./routes/index.js";
 import { errorLogger, requestLogger } from "./middlewares/logger.js";
 import limiter from "./middlewares/limit.js";
 
-mongoose.connect(connection);
+mongoose.connect(
+  process.env.NODE_ENV === "production"
+    ? process.env.DB_PRO
+    : process.env.DB_TEST
+);
 
 const { PORT = 3000 } = process.env;
 const server = express();

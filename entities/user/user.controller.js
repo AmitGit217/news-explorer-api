@@ -40,7 +40,9 @@ const signin = (req, res, next) => {
     .then((data) => {
       const token = jwt.sign(
         { id: data._id },
-        process.env.NODE_ENV === "pro" ? process.env.JWT_SECRET : "secret"
+        process.env.NODE_ENV === "production"
+          ? process.env.JWT_SECRET
+          : "secret"
       );
       const { password, ...user } = data._doc;
       res.send({ token, user });

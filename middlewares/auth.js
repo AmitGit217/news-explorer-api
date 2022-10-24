@@ -11,7 +11,7 @@ const auth = (req, res, next) => {
   try {
     payload = jwt.verify(
       token,
-      process.env.NODE_ENV === "pro" ? process.env.JWT_SECRET : "secret"
+      process.env.NODE_ENV === "production" ? process.env.JWT_SECRET : "secret"
     );
   } catch (err) {
     throw new Unauthorize(err);
