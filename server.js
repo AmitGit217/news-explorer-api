@@ -20,7 +20,7 @@ dotEnv.config();
 
 mongoose.connect(
   process.env.NODE_ENV === 'production'
-    ? process.env.db.DB_PRO
+    ? process.env.db.DB_PROD
     : 'mongodb://localhost:27017/news-explorer-test'
 );
 
