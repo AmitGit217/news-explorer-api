@@ -5,8 +5,8 @@ import {
   CREATE,
   INVALID_DATA_MESSAGE,
   UNAUTHORIZE_ACTION,
+  UNAUTHORIZE_ACTION_MESSAGE,
   UNAUTHORIZE_MESSAGE,
-  USER_NOT_FOUND_MESSAGE,
 } from '../../lib/constants.js';
 import Article from './article.schema.js';
 
@@ -50,7 +50,7 @@ const deleteArticleById = (req, res, next) => {
       if (user != owner) {
         return res
           .status(UNAUTHORIZE_ACTION)
-          .send({ message: UNAUTHORIZE_MESSAGE });
+          .send({ message: UNAUTHORIZE_ACTION_MESSAGE });
       }
       return Article.findByIdAndRemove(articleId).then((data) =>
         res.send(data)

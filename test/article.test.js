@@ -23,6 +23,7 @@ import {
 
 import {
   ARTICLE_NOT_FOUND_MESSAGE,
+  UNAUTHORIZE_ACTION_MESSAGE,
   USER_NOT_FOUND_MESSAGE,
 } from '../lib/constants';
 
@@ -196,14 +197,14 @@ describe('Article action', () => {
       const res = await req.post('/signin').send(credentialsTwo);
       tokenTwo = res.body.token;
     });
-    it('Should return 200 status code with the deleted article', async () => {
+    it('Should return 404 status for trying deleting other people article', async () => {
       const res = await req
         .delete(`/articles/${articleId}`)
         .set('Authorization', `Bearer ${tokenTwo}`);
-      // TODO: change error message
+      expect(res.status).toBe(403);
+      expect(res.body.message).toBe(UNAUTHORIZE_ACTION_MESSAGE);
     });
   });
-
   it('Should return 200 status code with the deleted article', async () => {
     const res = await req
       .delete(`/articles/${articleId}`)
