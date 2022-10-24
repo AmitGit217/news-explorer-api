@@ -33,4 +33,18 @@ const celebrateId = celebrate({
   }),
 });
 
-export { userValidation, articleValidation, celebrateId, celebrateSignin };
+const celebrateJwt = celebrate({
+  [Segments.HEADERS]: Joi.object()
+    .keys({
+      authorization: Joi.string().required(),
+    })
+    .unknown(),
+});
+
+export {
+  userValidation,
+  articleValidation,
+  celebrateId,
+  celebrateSignin,
+  celebrateJwt,
+};
