@@ -23,6 +23,7 @@ import {
 
 import {
   ARTICLE_NOT_FOUND_MESSAGE,
+  CELEBRATE_ERROR,
   UNAUTHORIZE_ACTION_MESSAGE,
   USER_NOT_FOUND_MESSAGE,
 } from '../lib/constants';
@@ -73,7 +74,7 @@ describe('Article action', () => {
       .send(missingKeyword)
       .set('Authorization', `Bearer ${token}`);
     expect(res.status).toBe(400);
-    expect(res.body.message).toBe('Validation failed');
+    expect(res.body.message).toBe(CELEBRATE_ERROR);
   });
   it('Should return 400 status code for missing title', async () => {
     const res = await req
@@ -81,7 +82,7 @@ describe('Article action', () => {
       .send(missingTitle)
       .set('Authorization', `Bearer ${token}`);
     expect(res.status).toBe(400);
-    expect(res.body.message).toBe('Validation failed');
+    expect(res.body.message).toBe(CELEBRATE_ERROR);
   });
 
   it('Should return 400 status code for missing text', async () => {
@@ -90,7 +91,7 @@ describe('Article action', () => {
       .send(missingText)
       .set('Authorization', `Bearer ${token}`);
     expect(res.status).toBe(400);
-    expect(res.body.message).toBe('Validation failed');
+    expect(res.body.message).toBe(CELEBRATE_ERROR);
   });
 
   it('Should return 400 status code for missing date', async () => {
@@ -99,7 +100,7 @@ describe('Article action', () => {
       .send(missingDate)
       .set('Authorization', `Bearer ${token}`);
     expect(res.status).toBe(400);
-    expect(res.body.message).toBe('Validation failed');
+    expect(res.body.message).toBe(CELEBRATE_ERROR);
   });
 
   it('Should return 400 status code for missing source', async () => {
@@ -108,7 +109,7 @@ describe('Article action', () => {
       .send(missingSource)
       .set('Authorization', `Bearer ${token}`);
     expect(res.status).toBe(400);
-    expect(res.body.message).toBe('Validation failed');
+    expect(res.body.message).toBe(CELEBRATE_ERROR);
   });
 
   it('Should return 400 status code for missing link', async () => {
@@ -117,7 +118,7 @@ describe('Article action', () => {
       .send(missingLink)
       .set('Authorization', `Bearer ${token}`);
     expect(res.status).toBe(400);
-    expect(res.body.message).toBe('Validation failed');
+    expect(res.body.message).toBe(CELEBRATE_ERROR);
   });
 
   it('Should return 400 status code for missing image', async () => {
@@ -126,7 +127,7 @@ describe('Article action', () => {
       .send(missingImage)
       .set('Authorization', `Bearer ${token}`);
     expect(res.status).toBe(400);
-    expect(res.body.message).toBe('Validation failed');
+    expect(res.body.message).toBe(CELEBRATE_ERROR);
   });
 
   it('Should return 400 status code for invalid link', async () => {
@@ -135,7 +136,7 @@ describe('Article action', () => {
       .send(invalidLink)
       .set('Authorization', `Bearer ${token}`);
     expect(res.status).toBe(400);
-    expect(res.body.message).toBe('Validation failed');
+    expect(res.body.message).toBe(CELEBRATE_ERROR);
   });
 
   it('Should return 400 status code for invalid image', async () => {
@@ -144,7 +145,7 @@ describe('Article action', () => {
       .send(invalidImage)
       .set('Authorization', `Bearer ${token}`);
     expect(res.status).toBe(400);
-    expect(res.body.message).toBe('Validation failed');
+    expect(res.body.message).toBe(CELEBRATE_ERROR);
   });
 
   it('Should return 200 status code with articles', async () => {
@@ -185,7 +186,7 @@ describe('Article action', () => {
       .delete(`/articles/${invalidArticleId}`)
       .set('Authorization', `Bearer ${token}`);
     expect(res.status).toBe(400);
-    expect(res.body.message).toBe('Validation failed');
+    expect(res.body.message).toBe(CELEBRATE_ERROR);
   });
 
   describe('Other user interaction', () => {

@@ -13,6 +13,13 @@ import {
   syntaxErrorEmail,
   syntaxErrorPassword,
 } from './cases.js';
+import {
+  CELEBRATE_ERROR,
+  DATA_EXIST_MESSAGE,
+  INCORRECT_CRED_MESSAGE,
+  RESOURCE_NOT_FOUND,
+  UNAUTHORIZE_MESSAGE,
+} from '../lib/constants';
 
 const req = supertest(server);
 
@@ -28,7 +35,7 @@ describe('Initial app settings', () => {
   it('Should response with 401 status code for unauthorized request', async () => {
     const res = await req.get('/');
     expect(res.status).toBe(401);
-    expect(res.body.message).toBe('Unauthorized');
+    expect(res.body.message).toBe(UNAUTHORIZE_MESSAGE);
   });
 
   describe('Auth /signup', () => {
@@ -43,25 +50,25 @@ describe('Initial app settings', () => {
     it('Should return 400 status code with error message for invalid email', async () => {
       const res = await req.post('/signup').send(invalidEmail);
       expect(res.status).toBe(400);
-      expect(res.body.message).toBe('Validation failed');
+      expect(res.body.message).toBe(CELEBRATE_ERROR);
     });
 
     it('Should return 400 status code with error message for invalid name', async () => {
       const res = await req.post('/signup').send(invalidName);
       expect(res.status).toBe(400);
-      expect(res.body.message).toBe('Validation failed');
+      expect(res.body.message).toBe(CELEBRATE_ERROR);
     });
 
     it('Should return 400 status code with error message for invalid password', async () => {
       const res = await req.post('/signup').send(invalidPassword);
       expect(res.status).toBe(400);
-      expect(res.body.message).toBe('Validation failed');
+      expect(res.body.message).toBe(CELEBRATE_ERROR);
     });
 
     it('Should return 409 status code with error message for existing email', async () => {
       const res = await req.post('/signup').send(user);
       expect(res.status).toBe(409);
-      expect(res.body.message).toBe('Data already exist in the database');
+      expect(res.body.message).toBe(DATA_EXIST_MESSAGE);
     });
   });
 
@@ -78,26 +85,26 @@ describe('Initial app settings', () => {
     it('Should return 401 status code with error message for invalid email credential', async () => {
       const res = await req.post('/signin').send(invalidEmailCredential);
       expect(res.status).toBe(401);
-      expect(res.body.message).toBe('Incorrect email or password');
+      expect(res.body.message).toBe(INCORRECT_CRED_MESSAGE);
     });
 
     it('Should return 401 status code with error message for invalid password credential', async () => {
       const res = await req.post('/signin').send(invalidPasswordCredential);
       expect(res.status).toBe(401);
-      expect(res.body.message).toBe('Incorrect email or password');
+      expect(res.body.message).toBe(INCORRECT_CRED_MESSAGE);
     });
   });
 
   it('Should return 400 status code with error message for invalid email credential', async () => {
     const res = await req.post('/signin').send(syntaxErrorEmail);
     expect(res.status).toBe(400);
-    expect(res.body.message).toBe('Validation failed');
+    expect(res.body.message).toBe(CELEBRATE_ERROR);
   });
 
   it('Should return 400 status code with error message for invalid password credential', async () => {
     const res = await req.post('/signin').send(syntaxErrorPassword);
     expect(res.status).toBe(400);
-    expect(res.body.message).toBe('Validation failed');
+    expect(res.body.message).toBe(CELEBRATE_ERROR);
   });
 });
 
@@ -106,5 +113,5 @@ it('Should response with 404 status code for undefined route', async () => {
     .get('/undefined-route')
     .set('Authorization', `Bearer ${token}`);
   expect(res.status).toBe(404);
-  expect(res.body.message).toBe('Requested resource not found');
+  expect(res.body.message).toBe(RESOURCE_NOT_FOUND);
 });

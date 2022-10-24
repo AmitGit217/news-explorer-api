@@ -2,6 +2,7 @@ import supertest from 'supertest';
 import mongoose from 'mongoose';
 import server from '../server';
 import { user, credentials } from './cases.js';
+import { UNAUTHORIZE_MESSAGE } from '../lib/constants';
 
 const req = supertest(server);
 
@@ -38,6 +39,6 @@ describe('User /users/me', () => {
   it('Should return 401 status code with error message for missing JWT', async () => {
     const res = await req.get('/users/me');
     expect(res.status).toBe(401);
-    expect(res.body.message).toBe('Unauthorized');
+    expect(res.body.message).toBe(UNAUTHORIZE_MESSAGE);
   });
 });
