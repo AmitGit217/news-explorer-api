@@ -197,7 +197,7 @@ describe('Article action', () => {
       const res = await req.post('/signin').send(credentialsTwo);
       tokenTwo = res.body.token;
     });
-    it('Should return 404 status for trying deleting other people article', async () => {
+    it('Should return 403 status for trying deleting other people article', async () => {
       const res = await req
         .delete(`/articles/${articleId}`)
         .set('Authorization', `Bearer ${tokenTwo}`);

@@ -4,11 +4,10 @@ import {
   ARTICLE_NOT_FOUND_MESSAGE,
   CREATE,
   INVALID_DATA_MESSAGE,
-  UNAUTHORIZE_ACTION,
   UNAUTHORIZE_ACTION_MESSAGE,
-  UNAUTHORIZE_MESSAGE,
 } from '../../lib/constants.js';
 import Article from './article.schema.js';
+import Forbidden from '../../helpers/errors/Forbidden.js';
 
 const createArticle = (req, res, next) => {
   const { id } = req.user;
@@ -45,16 +44,13 @@ const deleteArticleById = (req, res, next) => {
   Article.findById(articleId)
     .orFail()
     .select('+owner')
-    .then((article) => {
+    .then(async (article) => {
       const { owner } = article;
-      if (user != owner) {
-        return res
-          .status(UNAUTHORIZE_ACTION)
-          .send({ message: UNAUTHORIZE_ACTION_MESSAGE });
+      if (user == owner) {
+        const data = await Article.findByIdAndRemove(articleId);
+        return res.send(data);
       }
-      return Article.findByIdAndRemove(articleId).then((data) =>
-        res.send(data)
-      );
+      next(new Forbidden(UNAUTHORIZE_ACTION_MESSAGE));
     })
     .catch((error) => {
       if (error.name === 'DocumentNotFoundError') {
