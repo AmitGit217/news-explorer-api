@@ -20,10 +20,17 @@ const articleValidation = celebrate({
   }),
 });
 
+const celebrateSignin = celebrate({
+  body: Joi.object().keys({
+    email: Joi.string().required().email(),
+    password: Joi.string().required(),
+  }),
+});
+
 const celebrateId = celebrate({
   [Segments.PARAMS]: Joi.object().keys({
     _id: Joi.string().hex().length(24),
   }),
 });
 
-export { userValidation, articleValidation, celebrateId };
+export { userValidation, articleValidation, celebrateId, celebrateSignin };

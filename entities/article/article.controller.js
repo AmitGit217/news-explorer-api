@@ -34,7 +34,7 @@ const getCurrentUserArticles = (req, res, next) => {
     })
     .catch((error) => {
       if (error.name === 'DocumentNotFoundError')
-        throw new NotFound(USER_NOT_FOUND_MESSAGE);
+        throw new NotFound(ARTICLE_NOT_FOUND_MESSAGE);
     })
     .catch(next);
 };

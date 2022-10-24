@@ -9,11 +9,12 @@ import helmet from 'helmet';
 import routeUndefined from './helpers/routeUndefined.js';
 import errorHandler from './helpers/errorHandler.js';
 import { signin, signup } from './entities/user/user.controller.js';
-import { userValidation } from './middlewares/celebrate.js';
+import { celebrateSignin, userValidation } from './middlewares/celebrate.js';
 import auth from './middlewares/auth.js';
-import router from './routes/index.js';
 import { errorLogger, requestLogger } from './middlewares/logger.js';
 import limiter from './middlewares/limit.js';
+import userRouter from './routes/user.route.js';
+import articleRouter from './routes/article.route.js';
 
 dotEnv.config();
 
@@ -35,9 +36,10 @@ server.options('*', cors());
 server.use(helmet());
 server.use(limiter);
 server.post('/signup', userValidation, signup);
-server.post('/signin', signin);
+server.post('/signin', celebrateSignin, signin);
 server.use(auth);
-server.use(router);
+server.use(userRouter);
+server.use(articleRouter);
 server.use('*', routeUndefined);
 server.use(errorHandler);
 server.use(errorLogger);

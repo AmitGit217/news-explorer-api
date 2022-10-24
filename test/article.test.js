@@ -4,6 +4,7 @@ import server from '../server';
 import {
   article,
   credentials,
+  credentialsTwo,
   invalidArticleId,
   invalidImage,
   invalidLink,
@@ -17,6 +18,7 @@ import {
   undefinedArticle,
   user,
   userNotFoundToken,
+  userTwo,
 } from './cases.js';
 
 import {
@@ -34,6 +36,9 @@ afterAll((done) => {
 
 let token;
 let articleId;
+
+let tokenTwo;
+let articleIdTwo;
 describe('Article action', () => {
   it('Creating user...', async () => {
     const res = await req.post('/signup').send(user);
@@ -163,7 +168,7 @@ describe('Article action', () => {
       .get('/articles')
       .set('Authorization', `Bearer ${userNotFoundToken}`);
     expect(res.status).toBe(404);
-    expect(res.body.message).toBe(USER_NOT_FOUND_MESSAGE);
+    expect(res.body.message).toBe(ARTICLE_NOT_FOUND_MESSAGE);
   });
 
   it('Should return 404 status code with error message for undefined article', async () => {
@@ -180,6 +185,23 @@ describe('Article action', () => {
       .set('Authorization', `Bearer ${token}`);
     expect(res.status).toBe(400);
     expect(res.body.message).toBe('Validation failed');
+  });
+
+  describe('Other user interaction', () => {
+    it('Creating second user...', async () => {
+      const res = await req.post('/signup').send(userTwo);
+      return res;
+    });
+    it('Getting second token...', async () => {
+      const res = await req.post('/signin').send(credentialsTwo);
+      tokenTwo = res.body.token;
+    });
+    it('Should return 200 status code with the deleted article', async () => {
+      const res = await req
+        .delete(`/articles/${articleId}`)
+        .set('Authorization', `Bearer ${tokenTwo}`);
+      // TODO: change error message
+    });
   });
 
   it('Should return 200 status code with the deleted article', async () => {
@@ -203,6 +225,6 @@ describe('Article action', () => {
       .get('/articles')
       .set('Authorization', `Bearer ${token}`);
     expect(res.status).toBe(404);
-    expect(res.body.message).toBe(USER_NOT_FOUND_MESSAGE);
+    expect(res.body.message).toBe(ARTICLE_NOT_FOUND_MESSAGE);
   });
 });

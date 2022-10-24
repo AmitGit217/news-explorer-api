@@ -10,6 +10,8 @@ import {
   credentials,
   invalidEmailCredential,
   invalidPasswordCredential,
+  syntaxErrorEmail,
+  syntaxErrorPassword,
 } from './cases.js';
 
 const req = supertest(server);
@@ -86,11 +88,23 @@ describe('Initial app settings', () => {
     });
   });
 
-  it('Should response with 404 status code for undefined route', async () => {
-    const res = await req
-      .get('/undefined-route')
-      .set('Authorization', `Bearer ${token}`);
-    expect(res.status).toBe(404);
-    expect(res.body.message).toBe('Requested resource not found');
+  it('Should return 400 status code with error message for invalid email credential', async () => {
+    const res = await req.post('/signin').send(syntaxErrorEmail);
+    expect(res.status).toBe(400);
+    expect(res.body.message).toBe('Validation failed');
   });
+
+  it('Should return 400 status code with error message for invalid password credential', async () => {
+    const res = await req.post('/signin').send(syntaxErrorPassword);
+    expect(res.status).toBe(400);
+    expect(res.body.message).toBe('Validation failed');
+  });
+});
+
+it('Should response with 404 status code for undefined route', async () => {
+  const res = await req
+    .get('/undefined-route')
+    .set('Authorization', `Bearer ${token}`);
+  expect(res.status).toBe(404);
+  expect(res.body.message).toBe('Requested resource not found');
 });

@@ -3,6 +3,11 @@ const user = {
   name: 'name',
   password: 'password',
 };
+const userTwo = {
+  email: 'validTwo@email.com',
+  name: 'nameTwo',
+  password: 'password',
+};
 const invalidEmail = {
   email: 'invalidEmail',
   name: 'name',
@@ -22,6 +27,10 @@ const credentials = {
   email: 'valid@email.com',
   password: 'password',
 };
+const credentialsTwo = {
+  email: 'validTwo@email.com',
+  password: 'password',
+};
 
 const invalidEmailCredential = {
   email: 'invalid@email.com',
@@ -30,6 +39,15 @@ const invalidEmailCredential = {
 const invalidPasswordCredential = {
   email: 'valid@email.com',
   password: 'invalidPassword',
+};
+
+const syntaxErrorEmail = {
+  email: 'vali',
+  password: 'password',
+};
+const syntaxErrorPassword = {
+  email: 'valid@email.com',
+  password: '',
 };
 
 const article = {
@@ -178,4 +196,8 @@ export {
   userNotFoundToken,
   undefinedArticle,
   invalidArticleId,
+  userTwo,
+  credentialsTwo,
+  syntaxErrorEmail,
+  syntaxErrorPassword,
 };
