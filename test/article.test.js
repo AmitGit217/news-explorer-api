@@ -1,6 +1,6 @@
-import supertest from "supertest";
-import server from "../server";
-import mongoose from "mongoose";
+import supertest from 'supertest';
+import mongoose from 'mongoose';
+import server from '../server';
 import {
   article,
   credentials,
@@ -17,12 +17,12 @@ import {
   undefinedArticle,
   user,
   userNotFoundToken,
-} from "./cases.js";
+} from './cases.js';
 
 import {
   ARTICLE_NOT_FOUND_MESSAGE,
   USER_NOT_FOUND_MESSAGE,
-} from "../lib/constants";
+} from '../lib/constants';
 
 const req = supertest(server);
 
@@ -34,21 +34,21 @@ afterAll((done) => {
 
 let token;
 let articleId;
-describe("Article action", () => {
-  it("Creating user...", async () => {
-    const res = await req.post("/signup").send(user);
+describe('Article action', () => {
+  it('Creating user...', async () => {
+    const res = await req.post('/signup').send(user);
     return res;
   });
-  it("Getting token...", async () => {
-    const res = await req.post("/signin").send(credentials);
+  it('Getting token...', async () => {
+    const res = await req.post('/signin').send(credentials);
     token = res.body.token;
   });
 
-  it("Should return 201 status code with article data", async () => {
+  it('Should return 201 status code with article data', async () => {
     const res = await req
-      .post("/articles")
+      .post('/articles')
       .send(article)
-      .set("Authorization", "Bearer " + token);
+      .set('Authorization', `Bearer ${token}`);
     expect(res.status).toBe(201);
     expect(res.body.keyword).toBe(article.keyword);
     expect(res.body.title).toBe(article.title);
@@ -61,90 +61,90 @@ describe("Article action", () => {
     articleId = res.body._id;
   });
 
-  it("Should return 400 status code for missing keyword", async () => {
+  it('Should return 400 status code for missing keyword', async () => {
     const res = await req
-      .post("/articles")
+      .post('/articles')
       .send(missingKeyword)
-      .set("Authorization", "Bearer " + token);
+      .set('Authorization', `Bearer ${token}`);
     expect(res.status).toBe(400);
-    expect(res.body.message).toBe("Validation failed");
+    expect(res.body.message).toBe('Validation failed');
   });
-  it("Should return 400 status code for missing title", async () => {
+  it('Should return 400 status code for missing title', async () => {
     const res = await req
-      .post("/articles")
+      .post('/articles')
       .send(missingTitle)
-      .set("Authorization", "Bearer " + token);
+      .set('Authorization', `Bearer ${token}`);
     expect(res.status).toBe(400);
-    expect(res.body.message).toBe("Validation failed");
+    expect(res.body.message).toBe('Validation failed');
   });
 
-  it("Should return 400 status code for missing text", async () => {
+  it('Should return 400 status code for missing text', async () => {
     const res = await req
-      .post("/articles")
+      .post('/articles')
       .send(missingText)
-      .set("Authorization", "Bearer " + token);
+      .set('Authorization', `Bearer ${token}`);
     expect(res.status).toBe(400);
-    expect(res.body.message).toBe("Validation failed");
+    expect(res.body.message).toBe('Validation failed');
   });
 
-  it("Should return 400 status code for missing date", async () => {
+  it('Should return 400 status code for missing date', async () => {
     const res = await req
-      .post("/articles")
+      .post('/articles')
       .send(missingDate)
-      .set("Authorization", "Bearer " + token);
+      .set('Authorization', `Bearer ${token}`);
     expect(res.status).toBe(400);
-    expect(res.body.message).toBe("Validation failed");
+    expect(res.body.message).toBe('Validation failed');
   });
 
-  it("Should return 400 status code for missing source", async () => {
+  it('Should return 400 status code for missing source', async () => {
     const res = await req
-      .post("/articles")
+      .post('/articles')
       .send(missingSource)
-      .set("Authorization", "Bearer " + token);
+      .set('Authorization', `Bearer ${token}`);
     expect(res.status).toBe(400);
-    expect(res.body.message).toBe("Validation failed");
+    expect(res.body.message).toBe('Validation failed');
   });
 
-  it("Should return 400 status code for missing link", async () => {
+  it('Should return 400 status code for missing link', async () => {
     const res = await req
-      .post("/articles")
+      .post('/articles')
       .send(missingLink)
-      .set("Authorization", "Bearer " + token);
+      .set('Authorization', `Bearer ${token}`);
     expect(res.status).toBe(400);
-    expect(res.body.message).toBe("Validation failed");
+    expect(res.body.message).toBe('Validation failed');
   });
 
-  it("Should return 400 status code for missing image", async () => {
+  it('Should return 400 status code for missing image', async () => {
     const res = await req
-      .post("/articles")
+      .post('/articles')
       .send(missingImage)
-      .set("Authorization", "Bearer " + token);
+      .set('Authorization', `Bearer ${token}`);
     expect(res.status).toBe(400);
-    expect(res.body.message).toBe("Validation failed");
+    expect(res.body.message).toBe('Validation failed');
   });
 
-  it("Should return 400 status code for invalid link", async () => {
+  it('Should return 400 status code for invalid link', async () => {
     const res = await req
-      .post("/articles")
+      .post('/articles')
       .send(invalidLink)
-      .set("Authorization", "Bearer " + token);
+      .set('Authorization', `Bearer ${token}`);
     expect(res.status).toBe(400);
-    expect(res.body.message).toBe("Validation failed");
+    expect(res.body.message).toBe('Validation failed');
   });
 
-  it("Should return 400 status code for invalid image", async () => {
+  it('Should return 400 status code for invalid image', async () => {
     const res = await req
-      .post("/articles")
+      .post('/articles')
       .send(invalidImage)
-      .set("Authorization", "Bearer " + token);
+      .set('Authorization', `Bearer ${token}`);
     expect(res.status).toBe(400);
-    expect(res.body.message).toBe("Validation failed");
+    expect(res.body.message).toBe('Validation failed');
   });
 
-  it("Should return 200 status code with articles", async () => {
+  it('Should return 200 status code with articles', async () => {
     const res = await req
-      .get("/articles")
-      .set("Authorization", "Bearer " + token);
+      .get('/articles')
+      .set('Authorization', `Bearer ${token}`);
     expect(res.status).toBe(200);
     expect(res.body).toHaveLength(1);
     const currentArticle = res.body[0];
@@ -158,34 +158,34 @@ describe("Article action", () => {
     expect(currentArticle.owner).toBe(undefined);
   });
 
-  it("Should return 404 status code with error message for invalid token and undefined user id", async () => {
+  it('Should return 404 status code with error message for invalid token and undefined user id', async () => {
     const res = await req
-      .get("/articles")
-      .set("Authorization", "Bearer " + userNotFoundToken);
+      .get('/articles')
+      .set('Authorization', `Bearer ${userNotFoundToken}`);
     expect(res.status).toBe(404);
     expect(res.body.message).toBe(USER_NOT_FOUND_MESSAGE);
   });
 
-  it("Should return 404 status code with error message for undefined article", async () => {
+  it('Should return 404 status code with error message for undefined article', async () => {
     const res = await req
       .delete(`/articles/${undefinedArticle}`)
-      .set("Authorization", "Bearer " + token);
+      .set('Authorization', `Bearer ${token}`);
     expect(res.status).toBe(404);
     expect(res.body.message).toBe(ARTICLE_NOT_FOUND_MESSAGE);
   });
 
-  it("Should return 404 status code with error message for invalid article id", async () => {
+  it('Should return 404 status code with error message for invalid article id', async () => {
     const res = await req
       .delete(`/articles/${invalidArticleId}`)
-      .set("Authorization", "Bearer " + token);
+      .set('Authorization', `Bearer ${token}`);
     expect(res.status).toBe(400);
-    expect(res.body.message).toBe("Validation failed");
+    expect(res.body.message).toBe('Validation failed');
   });
 
-  it("Should return 200 status code with the deleted article", async () => {
+  it('Should return 200 status code with the deleted article', async () => {
     const res = await req
       .delete(`/articles/${articleId}`)
-      .set("Authorization", "Bearer " + token);
+      .set('Authorization', `Bearer ${token}`);
     expect(res.status).toBe(200);
     const currentArticle = res.body;
     expect(currentArticle.keyword).toBe(article.keyword);
@@ -198,10 +198,10 @@ describe("Article action", () => {
     expect(currentArticle.owner).toBe(undefined);
   });
 
-  it("Should return 404 status code for empty articles array", async () => {
+  it('Should return 404 status code for empty articles array', async () => {
     const res = await req
-      .get("/articles")
-      .set("Authorization", "Bearer " + token);
+      .get('/articles')
+      .set('Authorization', `Bearer ${token}`);
     expect(res.status).toBe(404);
     expect(res.body.message).toBe(USER_NOT_FOUND_MESSAGE);
   });

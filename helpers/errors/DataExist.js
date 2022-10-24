@@ -5,4 +5,4 @@ class DataExist extends Error {
   }
 }
 
-export { DataExist };
+export default DataExist;

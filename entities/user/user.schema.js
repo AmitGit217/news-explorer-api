@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
-import isEmail from "validator/lib/isEmail.js";
-import * as bcrypt from "bcrypt";
+import mongoose from 'mongoose';
+import isEmail from 'validator/lib/isEmail.js';
+import * as bcrypt from 'bcrypt';
 
 const User = new mongoose.Schema({
   name: { type: String, required: true, minlength: 2, maxlength: 30 },
@@ -8,7 +8,7 @@ const User = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    validate: [isEmail, "Email is invalid"],
+    validate: [isEmail, 'Email is invalid'],
   },
   password: {
     select: false,
@@ -22,18 +22,18 @@ User.statics.findUserByCredentials = function findUserByCredentials(
   password
 ) {
   return this.findOne({ email })
-    .select("+password")
+    .select('+password')
     .then((user) => {
       if (!user) {
-        return Promise.reject(new Error("Incorrect email or password"));
+        return Promise.reject(new Error('Incorrect email or password'));
       }
       return bcrypt.compare(password, user.password).then((matched) => {
         if (!matched) {
-          return Promise.reject(new Error("Incorrect email or password"));
+          return Promise.reject(new Error('Incorrect email or password'));
         }
         return user;
       });
     });
 };
 
-export default mongoose.model("user", User);
+export default mongoose.model('user', User);

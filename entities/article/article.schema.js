@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import { URL_REGEX } from "../../lib/constants.js";
+import mongoose from 'mongoose';
+import { URL_REGEX } from '../../lib/constants.js';
 
 const Article = new mongoose.Schema({
   keyword: { type: String, required: true },
@@ -24,11 +24,11 @@ const Article = new mongoose.Schema({
     },
   },
   owner: {
-    ref: "user",
+    ref: 'user',
     type: mongoose.Schema.Types.ObjectId,
     require: true,
     select: false,
   },
 });
 
-export default mongoose.model("article", Article);
+export default mongoose.model('article', Article);
