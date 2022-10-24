@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import isEmail from 'validator/lib/isEmail.js';
 import * as bcrypt from 'bcrypt';
-import { INCORRECT_CRED_MESSAGE } from '../../lib/constants';
+import { INCORRECT_CRED_MESSAGE } from '../../lib/constants.js';
 
 const User = new mongoose.Schema({
   name: { type: String, required: true, minlength: 2, maxlength: 30 },
