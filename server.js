@@ -19,7 +19,7 @@ import limiter from "./middlewares/limit.js";
 mongoose.connect(
   process.env.NODE_ENV === "production"
     ? process.env.DB_PRO
-    : process.env.DB_TEST
+    : "mongodb://localhost:27017/news-explorer-test"
 );
 
 const { PORT = 3000 } = process.env;
