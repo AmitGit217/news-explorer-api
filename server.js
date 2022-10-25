@@ -13,8 +13,6 @@ import { celebrateSignin, userValidation } from './middlewares/celebrate.js';
 import auth from './middlewares/auth.js';
 import { errorLogger, requestLogger } from './middlewares/logger.js';
 import limiter from './middlewares/limit.js';
-import userRouter from './routes/user.route.js';
-import articleRouter from './routes/article.route.js';
 import router from './routes/index.js';
 
 dotEnv.config();
