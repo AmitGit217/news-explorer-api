@@ -13,8 +13,7 @@ import { celebrateSignin, userValidation } from './middlewares/celebrate.js';
 import auth from './middlewares/auth.js';
 import { errorLogger, requestLogger } from './middlewares/logger.js';
 import limiter from './middlewares/limit.js';
-import userRouter from './routes/user.route.js';
-import articleRouter from './routes/article.route.js';
+import router from './routes/index.js';
 
 dotEnv.config();
 
@@ -38,8 +37,7 @@ server.use(limiter);
 server.post('/signup', userValidation, signup);
 server.post('/signin', celebrateSignin, signin);
 server.use(auth);
-server.use(userRouter);
-server.use(articleRouter);
+server.use(router);
 server.use('*', routeUndefined);
 server.use(errorHandler);
 server.use(errorLogger);
