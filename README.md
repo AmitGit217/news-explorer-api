@@ -9,3 +9,6 @@ For testing:
 - Article => `npm run test article.test.js`
 
 API => https://news-api.eastus.cloudapp.azure.com
+
+
+<!-- Security scan triggered at 2026-09-05 07:42:02 -->
